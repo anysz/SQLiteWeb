@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if page_set.get('title', False) %}
+	{{ page_set.get('title', 'Untitled') }} - {{ config.get('app_title', 'NTCorp') }}
+{% else %}
+	{{ config.get('app_title', 'NTCorp') }}
+{% endif %}
+{% endblock %}
+{% block head_description %}{{ page_set.get('page_desc', config.get('page_desc', '') ) }}{% endblock %}
+{% block head_author %}{{ page_set.get('page_author', config.get('page_author', '')) }}{% endblock %}
+{% block head_keywords %}{{ page_set.get('page_keywords', config.get('page_keywords', '')) }}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body_element %}{% endblock %}
+
+{% block pjumbo %}{{ page_set['cur_tb'] }}{% endblock %}
+{% block body %}
+<!-- p class="description"></p -->
+<div class="container-fluid">
+	<div class="form-group">
+		<a class="form-control btn btn-info xmsl" href="/explore?db={{ page_set['cur_db'] }}"><b>Back</b></a>
+		<form method="POST">
+			<div class="row xmsl">
+			<div class="col-md-10">
+				<input type="text" class="form-control" name="query" placeholder="Query" value="{{ page_set['iquery'] }}">
+			</div>
+			<div class="col-md-2">
+				<input type="submit" class="form-control" name="submit" value="DO!">
+			</div>
+		</form>
+		<!-- a class="form-control btn btn-info xmsl" href="/"><b>Back</b></a -->
+	</div>
+	<div class="table-responsive table-full-width">
+		<table class="table table-stripped table-hover">
+		<tr>{% for field in page_set['finfos'] %}
+			<td class="text-center {{ 'primary-key' if field['primary'] == True else '' }}">
+				{{ field['name'] }} ({{ field['type'] }})
+			</td>
+		{% endfor %}</tr>
+		{% if page_set['length_item'] == 0 %}
+			<td colspan="{{ page_set['length_field'] }}"><center><h3>No data here :(</h3></center></td>
+		{% else %}
+			{% for item in page_set['items'] %}{% for fil_field in item %}<td>{{ fil_field }}</td>{% endfor %}<tr />{% endfor %}
+		{% endif %}
+		</table>
+	</div>
+</div>
+{% endblock %}
+
+{% block body_bottom %}
+{% endblock %}

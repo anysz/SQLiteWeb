@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if page_set.get('title', False) %}
+	{{ page_set.get('title', 'Untitled') }} - {{ config.get('app_title', 'NTCorp') }}
+{% else %}
+	{{ config.get('app_title', 'NTCorp') }}
+{% endif %}
+{% endblock %}
+{% block head_description %}{{ page_set.get('page_desc', config.get('page_desc', '') ) }}{% endblock %}
+{% block head_author %}{{ page_set.get('page_author', config.get('page_author', '')) }}{% endblock %}
+{% block head_keywords %}{{ page_set.get('page_keywords', config.get('page_keywords', '')) }}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body_element %}{% endblock %}
+
+{% block pjumbo %}{{ page_set['cur_db'] }}{% endblock %}
+{% block body %}
+<p class="description">Table list</p>
+<div class="container-fluid">
+	<div class="form-group">
+		<!-- a class="form-control btn btn-info xmsl" href="/explore?db={{ page_set['cur_db'] }}"><b>Back</b></a -->
+		<a class="form-control btn btn-info xmsl" href="/"><b>Back</b></a>
+{% for tb in page_set['table_list'] %}
+	{% if tb[0] == 'table' %}
+		<a class="form-control btn btn-info xmsl" href="/explore/table?db={{ page_set['cur_db'] }}&table={{ tb[1] }}">{{ tb[1] }}</a>
+	{% endif %}
+{% endfor %}
+	</div>
+</div>
+{% endblock %}
+
+{% block body_bottom %}
+{% endblock %}

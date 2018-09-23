@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if page_set.get('title', False) %}
+	{{ page_set.get('title', 'Untitled') }} - {{ config.get('app_title', 'NTCorp') }}
+{% else %}
+	{{ config.get('app_title', 'NTCorp') }}
+{% endif %}
+{% endblock %}
+{% block head_description %}{{ page_set.get('page_desc', config.get('page_desc', '') ) }}{% endblock %}
+{% block head_author %}{{ page_set.get('page_author', config.get('page_author', '')) }}{% endblock %}
+{% block head_keywords %}{{ page_set.get('page_keywords', config.get('page_keywords', '')) }}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body_element %}{% endblock %}
+
+{% block pjumbo %}{{ page_set['page'] }}{% endblock %}
+{% block body %}{% endblock %}
+
+{% block body_bottom %}
+{% endblock %}
